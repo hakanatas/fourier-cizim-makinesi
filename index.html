@@ -8,8 +8,28 @@
 </head>
 <body>
 <header class="topbar">
-  <h1>Fourier <span>Çizim Makinesi</span></h1>
-  <div class="controls">
+  <div class="brand">
+    <div class="kicker">Etkileşimli Bilim Levhaları</div>
+    <h1>Fourier <span>Çizim Makinesi</span></h1>
+  </div>
+  <nav class="plate-nav">
+    <a class="plate-tab page-link" href="https://hakanatas.github.io/interactive-periodic-table/">
+      <span class="fig">Levha I</span>
+      <span class="lbl">Periyodik Tablo</span>
+    </a>
+    <a class="plate-tab page-link" href="https://hakanatas.github.io/interactive-periodic-table/nuclides.html">
+      <span class="fig">Levha II</span>
+      <span class="lbl">Nüklit Haritası</span>
+    </a>
+    <a class="plate-tab active page-link" href="index.html">
+      <span class="fig">Levha III</span>
+      <span class="lbl">Fourier Makinesi</span>
+    </a>
+  </nav>
+</header>
+
+<div class="board-wrap">
+  <div class="control-bar">
     <div class="presets">
       <button data-shape="heart">❤️ Kalp</button>
       <button data-shape="star">⭐ Yıldız</button>
@@ -17,11 +37,6 @@
       <button data-shape="infinity">∞ Sonsuz</button>
       <button id="clearBtn">🗑 Temizle</button>
     </div>
-  </div>
-</header>
-
-<div class="board-wrap">
-  <div class="control-bar">
     <label class="ctl">
       <span>Terim sayısı: <b id="termVal">40</b></span>
       <input id="termSlider" type="range" min="1" max="200" step="1" value="40">
@@ -66,6 +81,7 @@
     <canvas id="canvas"></canvas>
     <div class="hint" id="hint">✏️ Fareyle bir şekil çiz (kapalı bir eğri en iyisi)<br>ya da yukarıdan hazır şekil seç</div>
   </div>
+  <div class="plate-caption">Levha III — Fourier Serisi · N = 512 örnek</div>
   <p class="explain">
     Çizdiğin her şekil, sabit hızlarla dönen çemberlerin (episaykılların) toplamına ayrıştırılır —
     bu bir <b>Fourier serisidir</b>. Terim sayısını artırdıkça çizim aslına yaklaşır:

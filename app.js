@@ -302,7 +302,7 @@ function drawFrame() {
 
   // çizim sürerken ham yolu göster
   if (state.drawing && state.raw.length > 1) {
-    ctx.strokeStyle = "#8d93ab";
+    ctx.strokeStyle = "#51607a";
     ctx.lineWidth = 2;
     ctx.beginPath();
     state.raw.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
@@ -312,7 +312,7 @@ function drawFrame() {
   if (state.coeffs.length) {
     // orijinal iz (hayalet)
     if (state.ghost && state.path.length) {
-      ctx.strokeStyle = "#3a4250";
+      ctx.strokeStyle = "rgba(34, 51, 79, 0.22)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       state.path.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
@@ -324,7 +324,7 @@ function drawFrame() {
     state.t = (state.t + (state.speed / 8000) * TAU) % TAU;
     let x = center[0], y = center[1];
     if (state.circles) {
-      ctx.strokeStyle = "#ffffff22";
+      ctx.strokeStyle = "rgba(34, 51, 79, 0.16)";
       ctx.lineWidth = 1;
     }
     for (let i = 0; i < state.terms && i < state.coeffs.length; i++) {
@@ -334,7 +334,7 @@ function drawFrame() {
       const ny = y + c.amp * sin(ang);
       const hot = i === state.hlTerm;
       if ((state.circles && c.amp > 1.5) || hot) {
-        ctx.strokeStyle = hot ? "#f05454" : "#ffffff22";
+        ctx.strokeStyle = hot ? "#b5432c" : "rgba(34, 51, 79, 0.16)";
         ctx.lineWidth = hot ? 2.2 : 1;
         ctx.beginPath();
         ctx.arc(x, y, c.amp, 0, TAU);
@@ -352,7 +352,7 @@ function drawFrame() {
     const maxTrace = Math.ceil((TAU / ((state.speed / 8000) * TAU)) * 1.0);
     if (state.trace.length > maxTrace) state.trace.splice(0, state.trace.length - maxTrace);
     if (state.trace.length > 1) {
-      ctx.strokeStyle = "#f05454";
+      ctx.strokeStyle = "#b5432c";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       state.trace.forEach(([tx, ty], i) => (i ? ctx.lineTo(tx, ty) : ctx.moveTo(tx, ty)));
@@ -360,7 +360,7 @@ function drawFrame() {
     }
 
     // kalem ucu
-    ctx.fillStyle = "#eeeeee";
+    ctx.fillStyle = "#22334f";
     ctx.beginPath();
     ctx.arc(x, y, 3.5, 0, TAU);
     ctx.fill();
@@ -368,6 +368,15 @@ function drawFrame() {
 
   requestAnimationFrame(drawFrame);
 }
+
+/* ---------- sayfa geçişi (levha sekmeleri) ---------- */
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest("a.page-link");
+  if (!a || !a.getAttribute("href") || a.target === "_blank") return;
+  ev.preventDefault();
+  document.body.classList.add("leaving");
+  setTimeout(() => (location.href = a.href), 240);
+});
 
 resize();
 loadShape("heart");
