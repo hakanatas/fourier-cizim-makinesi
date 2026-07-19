@@ -54,7 +54,7 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
 }
 .topbar h1 span { color: var(--accent); }
 
-.plate-nav { display: flex; gap: 0.6rem; }
+.plate-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .plate-tab {
   display: flex;
   flex-direction: column;
@@ -342,7 +342,7 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
   .brand .kicker { font-size: 0.52rem; letter-spacing: 0.2em; }
   .topbar h1 { font-size: 1.12rem; }
   .plate-nav { width: 100%; }
-  .plate-tab { flex: 1; padding: 0.4rem 0.45rem; }
+  .plate-tab { flex: 1 1 45%; padding: 0.4rem 0.45rem; }
   .plate-tab .lbl { font-size: 0.66rem; }
   .plate-tab .fig { font-size: 0.46rem; }
   .board-wrap { width: 100%; padding: 0 3vw; }
