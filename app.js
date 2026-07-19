@@ -136,12 +136,17 @@ fxBtn.addEventListener("click", () => {
 const FX_SHOW_MAX = 12; // panelde açık yazılan en fazla terim
 const num = (v, d = 1) => (+v.toFixed(d)).toLocaleString("tr-TR");
 
-/* k't + φ' ifadesi: k=1 -> "t", k=-3 -> "−3t"; faz işaretiyle */
-function argStr(freq, phase) {
-  const kt = freq === 1 ? "t" : freq === -1 ? "−t" : `${freq < 0 ? "−" : ""}${Math.abs(freq)}t`;
-  if (Math.abs(phase) < 0.005) return kt;
-  return `${kt} ${phase < 0 ? "−" : "+"} ${num(Math.abs(phase), 2)}`;
+/* k't + φ' ifadesi (renk kodlu HTML): k=1 -> "t", k=-3 -> "−3t"; faz işaretiyle */
+function argHTML(freq, phase) {
+  const kt = freq === 1 ? "<i>t</i>" : freq === -1 ? "−<i>t</i>"
+    : `${freq < 0 ? "−" : ""}${Math.abs(freq)}<i>t</i>`;
+  let html = `<span class="c-frq">${kt}</span>`;
+  if (Math.abs(phase) >= 0.005)
+    html += ` ${phase < 0 ? "−" : "+"} <span class="c-ph">${num(Math.abs(phase), 2)}</span>`;
+  return html;
 }
+const termHTML = (c, i) =>
+  `<span class="fx-term" data-i="${i}"><span class="c-amp">${num(c.amp)}</span>·e<sup>i(${argHTML(c.freq, c.phase)})</sup></span>`;
 
 function renderFormulas() {
   if (!state.showFx) return;
@@ -159,11 +164,9 @@ function renderFormulas() {
   title.textContent = `Senin çiziminin serisi — ilk ${K} terim, genliğe göre sıralı`;
 
   // karmaşık üstel biçim: z(t) ≈ (cx + i·cy) + Σ aᵢ·e^{i(kt+φ)}
-  let html = `z(t) ≈ (${num(center[0])} + ${num(center[1])}i)`;
-  for (let i = 0; i < shown; i++) {
-    const c = state.coeffs[i];
-    html += ` + <span class="fx-term" data-i="${i}">${num(c.amp)}·e<sup>i(${argStr(c.freq, c.phase)})</sup></span>`;
-  }
+  let html = `<i>z</i>(<i>t</i>) ≈ <span class="fx-c0">${num(center[0])} + ${num(center[1])}i</span>`;
+  for (let i = 0; i < shown; i++)
+    html += `<span class="fx-plus">+</span>${termHTML(state.coeffs[i], i)}`;
   if (K > shown) html += ` <span class="fx-more">+ … (${K - shown} terim daha)</span>`;
   terms.innerHTML = html;
 
@@ -174,11 +177,13 @@ function renderFormulas() {
 
   // gerçel biçim (ilk 4 terim)
   const rShown = min(K, 4);
-  let xs = `x(t) ≈ ${num(center[0])}`, ys = `y(t) ≈ ${num(center[1])}`;
+  let xs = `<i>x</i>(<i>t</i>) ≈ ${num(center[0])}`;
+  let ys = `<i>y</i>(<i>t</i>) ≈ ${num(center[1])}`;
   for (let i = 0; i < rShown; i++) {
     const c = state.coeffs[i];
-    xs += ` + ${num(c.amp)}·cos(${argStr(c.freq, c.phase)})`;
-    ys += ` + ${num(c.amp)}·sin(${argStr(c.freq, c.phase)})`;
+    const arg = argHTML(c.freq, c.phase);
+    xs += ` + <span class="c-amp">${num(c.amp)}</span>·<span class="fn">cos</span>(${arg})`;
+    ys += ` + <span class="c-amp">${num(c.amp)}</span>·<span class="fn">sin</span>(${arg})`;
   }
   const more = K > rShown ? ` <span class="fx-more">+ …</span>` : "";
   real.innerHTML = xs + more + "<br>" + ys + more;

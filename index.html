@@ -37,18 +37,29 @@
   </div>
   <div class="formula-panel" id="fxPanel" hidden>
     <div class="fx-block">
-      <div class="fx-title">Genel form — çizim, karmaşık düzlemde kapalı bir eğridir: z(t) = x(t) + i·y(t)</div>
-      <div class="fx-line">z(t) = Σ<sub>k</sub> c<sub>k</sub> e<sup>ikt</sup>&nbsp;&nbsp;,&nbsp;&nbsp;c<sub>k</sub> = (1/N) Σ<sub>n=0</sub><sup>N−1</sup> z<sub>n</sub> e<sup>−ik·2πn/N</sup>&nbsp;&nbsp;(N = 512 örnek)</div>
-      <div class="fx-note">Her c<sub>k</sub> katsayısı bir çemberdir: |c<sub>k</sub>| yarıçap, k dönüş hızı (tur/periyot), arg(c<sub>k</sub>) başlangıç açısı.</div>
+      <div class="fx-title">Genel form</div>
+      <div class="fx-sub">Çizim, karmaşık düzlemde kapalı bir eğridir:
+        <span class="fx-math"><i>z</i>(<i>t</i>) = <i>x</i>(<i>t</i>) + i·<i>y</i>(<i>t</i>)</span></div>
+      <div class="fx-display fx-math">
+        <i>z</i>(<i>t</i>)&nbsp;=&nbsp;<span class="sum"><span class="s-sup">&nbsp;</span><span class="sigma">Σ</span><span class="s-sub">k</span></span><i>c</i><sub>k</sub>&thinsp;e<sup>i<span class="c-frq">k</span><i>t</i></sup>
+        <span class="fx-sep"></span>
+        <i>c</i><sub>k</sub>&nbsp;=&nbsp;<span class="frac"><span>1</span><span>N</span></span><span class="sum"><span class="s-sup">N−1</span><span class="sigma">Σ</span><span class="s-sub">n=0</span></span><i>z</i><sub>n</sub>&thinsp;e<sup>−i·2π<span class="c-frq">k</span>n/N</sup>
+        <span class="fx-inline-note">N = 512 örnek</span>
+      </div>
+      <div class="fx-keys">
+        <span><i class="dot dot-amp"></i>|<i>c</i><sub>k</sub>| — çemberin yarıçapı</span>
+        <span><i class="dot dot-frq"></i><i>k</i> — dönüş hızı (tur/periyot)</span>
+        <span><i class="dot dot-ph"></i>arg(<i>c</i><sub>k</sub>) — başlangıç açısı</span>
+      </div>
     </div>
     <div class="fx-block">
       <div class="fx-title" id="fxSeriesTitle">Senin çiziminin serisi</div>
-      <div class="fx-line fx-terms" id="fxTerms"></div>
+      <div class="fx-display fx-math fx-terms" id="fxTerms"></div>
       <div class="fx-note">Bir terimin üzerine gel: karşılık gelen çember kanvasta kırmızı vurgulanır. Genlikler piksel, açılar radyan.</div>
     </div>
     <div class="fx-block">
       <div class="fx-title">Gerçel (x–y) biçimi</div>
-      <div class="fx-line" id="fxReal"></div>
+      <div class="fx-display fx-math" id="fxReal"></div>
     </div>
   </div>
   <div class="board" id="board">
