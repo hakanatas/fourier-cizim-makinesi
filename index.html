@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fourier Çizim Makinesi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>Fourier <span>Çizim Makinesi</span></h1>
+  <div class="controls">
+    <div class="presets">
+      <button data-shape="heart">❤️ Kalp</button>
+      <button data-shape="star">⭐ Yıldız</button>
+      <button data-shape="butterfly">🦋 Kelebek</button>
+      <button data-shape="infinity">∞ Sonsuz</button>
+      <button id="clearBtn">🗑 Temizle</button>
+    </div>
+  </div>
+</header>
+
+<div class="board-wrap">
+  <div class="control-bar">
+    <label class="ctl">
+      <span>Terim sayısı: <b id="termVal">40</b></span>
+      <input id="termSlider" type="range" min="1" max="200" step="1" value="40">
+    </label>
+    <label class="ctl">
+      <span>Hız</span>
+      <input id="speedSlider" type="range" min="1" max="40" step="1" value="12">
+    </label>
+    <label class="toggle"><input id="circlesChk" type="checkbox" checked> Çemberler</label>
+    <label class="toggle"><input id="ghostChk" type="checkbox" checked> Orijinal iz</label>
+    <span class="score" id="score"></span>
+  </div>
+  <div class="board" id="board">
+    <canvas id="canvas"></canvas>
+    <div class="hint" id="hint">✏️ Fareyle bir şekil çiz (kapalı bir eğri en iyisi)<br>ya da yukarıdan hazır şekil seç</div>
+  </div>
+  <p class="explain">
+    Çizdiğin her şekil, sabit hızlarla dönen çemberlerin (episaykılların) toplamına ayrıştırılır —
+    bu bir <b>Fourier serisidir</b>. Terim sayısını artırdıkça çizim aslına yaklaşır:
+    az çember = yumuşak taslak, çok çember = keskin ayrıntı.
+  </p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
