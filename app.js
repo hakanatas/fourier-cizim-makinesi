@@ -35,6 +35,8 @@ const state = {
   t: 0,           // animasyon fazı 0..TAU
   trace: [],      // kalemin bıraktığı iz
   path: [],       // yeniden örneklenmiş orijinal yol
+  showFx: false,  // formül paneli açık mı
+  hlTerm: null,   // formülde üzerine gelinen terimin indeksi
 };
 
 /* ---------- yol işleme ---------- */
@@ -92,6 +94,7 @@ function setPath(points) {
   state.t = 0;
   hint.style.display = "none";
   updateScore();
+  renderFormulas();
 }
 
 /* K terimle konum (t: 0..TAU) */
@@ -118,6 +121,67 @@ function updateScore() {
   }
   const sim = max(0, 100 - (err / scale) * 100);
   document.getElementById("score").textContent = `Benzerlik: %${sim.toFixed(1)}`;
+}
+
+/* ---------- formül paneli ---------- */
+const fxPanel = document.getElementById("fxPanel");
+const fxBtn = document.getElementById("fxBtn");
+fxBtn.addEventListener("click", () => {
+  state.showFx = !state.showFx;
+  fxBtn.classList.toggle("active", state.showFx);
+  fxPanel.hidden = !state.showFx;
+  if (state.showFx) renderFormulas();
+});
+
+const FX_SHOW_MAX = 12; // panelde açık yazılan en fazla terim
+const num = (v, d = 1) => (+v.toFixed(d)).toLocaleString("tr-TR");
+
+/* k't + φ' ifadesi: k=1 -> "t", k=-3 -> "−3t"; faz işaretiyle */
+function argStr(freq, phase) {
+  const kt = freq === 1 ? "t" : freq === -1 ? "−t" : `${freq < 0 ? "−" : ""}${Math.abs(freq)}t`;
+  if (Math.abs(phase) < 0.005) return kt;
+  return `${kt} ${phase < 0 ? "−" : "+"} ${num(Math.abs(phase), 2)}`;
+}
+
+function renderFormulas() {
+  if (!state.showFx) return;
+  const terms = document.getElementById("fxTerms");
+  const real = document.getElementById("fxReal");
+  const title = document.getElementById("fxSeriesTitle");
+  if (!state.coeffs.length) {
+    title.textContent = "Senin çiziminin serisi";
+    terms.innerHTML = `<span class="fx-more">Önce bir şekil çiz ya da hazır şekil seç.</span>`;
+    real.innerHTML = "—";
+    return;
+  }
+  const K = min(state.terms, state.coeffs.length);
+  const shown = min(K, FX_SHOW_MAX);
+  title.textContent = `Senin çiziminin serisi — ilk ${K} terim, genliğe göre sıralı`;
+
+  // karmaşık üstel biçim: z(t) ≈ (cx + i·cy) + Σ aᵢ·e^{i(kt+φ)}
+  let html = `z(t) ≈ (${num(center[0])} + ${num(center[1])}i)`;
+  for (let i = 0; i < shown; i++) {
+    const c = state.coeffs[i];
+    html += ` + <span class="fx-term" data-i="${i}">${num(c.amp)}·e<sup>i(${argStr(c.freq, c.phase)})</sup></span>`;
+  }
+  if (K > shown) html += ` <span class="fx-more">+ … (${K - shown} terim daha)</span>`;
+  terms.innerHTML = html;
+
+  terms.querySelectorAll(".fx-term").forEach((el) => {
+    el.addEventListener("mouseenter", () => (state.hlTerm = +el.dataset.i));
+    el.addEventListener("mouseleave", () => (state.hlTerm = null));
+  });
+
+  // gerçel biçim (ilk 4 terim)
+  const rShown = min(K, 4);
+  let xs = `x(t) ≈ ${num(center[0])}`, ys = `y(t) ≈ ${num(center[1])}`;
+  for (let i = 0; i < rShown; i++) {
+    const c = state.coeffs[i];
+    xs += ` + ${num(c.amp)}·cos(${argStr(c.freq, c.phase)})`;
+    ys += ` + ${num(c.amp)}·sin(${argStr(c.freq, c.phase)})`;
+  }
+  const more = K > rShown ? ` <span class="fx-more">+ …</span>` : "";
+  real.innerHTML = xs + more + "<br>" + ys + more;
 }
 
 /* ---------- çizim (kullanıcı girişi) ---------- */
@@ -197,6 +261,7 @@ document.getElementById("clearBtn").addEventListener("click", () => {
   state.trace = [];
   document.getElementById("score").textContent = "";
   hint.style.display = "";
+  renderFormulas();
 });
 
 /* ---------- kontroller ---------- */
@@ -206,6 +271,7 @@ termSlider.addEventListener("input", () => {
   document.getElementById("termVal").textContent = state.terms;
   state.trace = [];
   updateScore();
+  renderFormulas();
 });
 document.getElementById("speedSlider").addEventListener("input", (ev) => (state.speed = +ev.target.value));
 document.getElementById("circlesChk").addEventListener("change", (ev) => (state.circles = ev.target.checked));
@@ -249,7 +315,10 @@ function drawFrame() {
       const ang = c.freq * state.t + c.phase;
       const nx = x + c.amp * cos(ang);
       const ny = y + c.amp * sin(ang);
-      if (state.circles && c.amp > 1.5) {
+      const hot = i === state.hlTerm;
+      if ((state.circles && c.amp > 1.5) || hot) {
+        ctx.strokeStyle = hot ? "#f05454" : "#ffffff22";
+        ctx.lineWidth = hot ? 2.2 : 1;
         ctx.beginPath();
         ctx.arc(x, y, c.amp, 0, TAU);
         ctx.stroke();

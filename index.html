@@ -32,7 +32,24 @@
     </label>
     <label class="toggle"><input id="circlesChk" type="checkbox" checked> Çemberler</label>
     <label class="toggle"><input id="ghostChk" type="checkbox" checked> Orijinal iz</label>
+    <button id="fxBtn" class="fx-btn">ƒ Formüller</button>
     <span class="score" id="score"></span>
+  </div>
+  <div class="formula-panel" id="fxPanel" hidden>
+    <div class="fx-block">
+      <div class="fx-title">Genel form — çizim, karmaşık düzlemde kapalı bir eğridir: z(t) = x(t) + i·y(t)</div>
+      <div class="fx-line">z(t) = Σ<sub>k</sub> c<sub>k</sub> e<sup>ikt</sup>&nbsp;&nbsp;,&nbsp;&nbsp;c<sub>k</sub> = (1/N) Σ<sub>n=0</sub><sup>N−1</sup> z<sub>n</sub> e<sup>−ik·2πn/N</sup>&nbsp;&nbsp;(N = 512 örnek)</div>
+      <div class="fx-note">Her c<sub>k</sub> katsayısı bir çemberdir: |c<sub>k</sub>| yarıçap, k dönüş hızı (tur/periyot), arg(c<sub>k</sub>) başlangıç açısı.</div>
+    </div>
+    <div class="fx-block">
+      <div class="fx-title" id="fxSeriesTitle">Senin çiziminin serisi</div>
+      <div class="fx-line fx-terms" id="fxTerms"></div>
+      <div class="fx-note">Bir terimin üzerine gel: karşılık gelen çember kanvasta kırmızı vurgulanır. Genlikler piksel, açılar radyan.</div>
+    </div>
+    <div class="fx-block">
+      <div class="fx-title">Gerçel (x–y) biçimi</div>
+      <div class="fx-line" id="fxReal"></div>
+    </div>
   </div>
   <div class="board" id="board">
     <canvas id="canvas"></canvas>

@@ -80,6 +80,52 @@ body {
 .toggle input { accent-color: #f05454; }
 .score { margin-left: auto; font-family: "Merriweather", serif; font-size: 0.95rem; color: #7bd88f; }
 
+.fx-btn {
+  background: #2b323d;
+  border: 1px solid #3a4250;
+  color: #8d93ab;
+  font-family: "Merriweather", serif;
+  font-size: 0.78rem;
+  padding: 0.38rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fx-btn:hover { color: #eeeeee; border-color: #f05454; }
+.fx-btn.active { background: #f05454; border-color: #f05454; color: #fff; }
+
+.formula-panel {
+  background: #262c35;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.fx-block { border-left: 3px solid #3a4250; padding-left: 0.8rem; }
+.fx-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: #8d93ab; margin-bottom: 0.35rem; }
+.fx-line {
+  font-family: "Merriweather", Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #eeeeee;
+  line-height: 2;
+  word-break: break-word;
+}
+.fx-line sub, .fx-line sup { font-size: 0.62em; font-style: normal; }
+.fx-note { font-size: 0.72rem; color: #8d93ab; margin-top: 0.3rem; font-style: normal; }
+.fx-note sub { font-size: 0.62em; }
+
+.fx-term {
+  display: inline-block;
+  padding: 0.05rem 0.3rem;
+  border-radius: 5px;
+  cursor: default;
+  transition: all 0.12s;
+}
+.fx-term:hover, .fx-term.hot { background: #f0545422; color: #f05454; }
+.fx-more { color: #8d93ab; font-size: 0.8rem; }
+
 .board {
   position: relative;
   background: #262c35;
