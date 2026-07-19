@@ -248,3 +248,24 @@ body {
   max-width: 60rem;
 }
 .explain b { color: #d8dee9; }
+
+/* ---------- küçük ekranlar ---------- */
+@media (max-width: 760px) {
+  .topbar { padding: 0.8rem 3vw 0.4rem; }
+  .topbar h1 { font-size: 1.12rem; }
+  .presets { width: 100%; }
+  .presets button { flex: 1; font-size: 0.72rem; padding: 0.4rem 0.4rem; white-space: nowrap; }
+  .board-wrap { width: 100%; padding: 0 3vw; }
+  .control-bar { gap: 0.7rem 1rem; padding: 0.6rem 0.8rem; }
+  .ctl { flex: 1 1 100%; }
+  .ctl input[type="range"] { width: 100%; }
+  .toggle { font-size: 0.7rem; }
+  .score { margin-left: auto; font-size: 0.85rem; }
+  .fx-btn { font-size: 0.72rem; }
+  .formula-panel { padding: 0.8rem 0.8rem; }
+  .fx-math { font-size: 0.95rem; }
+  .fx-display { padding: 0.7rem 0.75rem; }
+  .fx-keys { gap: 0.5rem 0.9rem; font-size: 0.68rem; }
+  .hint { font-size: 0.85rem; padding: 0 1rem; }
+  .explain { font-size: 0.72rem; }
+}

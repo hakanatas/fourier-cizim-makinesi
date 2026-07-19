@@ -13,13 +13,23 @@ const ctx = canvas.getContext("2d");
 const hint = document.getElementById("hint");
 let W = 0, H = 0, DPR = 1;
 
+let lastShape = null; // son hazır şekil; elle çizimde null
 function resize() {
+  const prevW = W, prevH = H;
   DPR = window.devicePixelRatio || 1;
   W = board.clientWidth;
-  H = Math.max(420, Math.round(window.innerHeight - board.getBoundingClientRect().top - 90));
+  H = Math.max(380, Math.round(window.innerHeight - board.getBoundingClientRect().top - 90));
   canvas.width = Math.round(W * DPR);
   canvas.height = Math.round(H * DPR);
   canvas.style.height = H + "px";
+  // mevcut şekli yeni boyuta yeniden sığdır
+  if (prevW && (prevW !== W || prevH !== H)) {
+    if (lastShape) loadShape(lastShape);
+    else if (state.path.length) {
+      const fx = W / prevW, fy = H / prevH;
+      setPath(state.path.map(([x, y]) => [x * fx, y * fy]));
+    }
+  }
 }
 window.addEventListener("resize", () => { resize(); });
 
@@ -211,6 +221,7 @@ function moveDraw(ev) {
 function endDraw() {
   if (!state.drawing) return;
   state.drawing = false;
+  lastShape = null;
   setPath(state.raw);
 }
 canvas.addEventListener("mousedown", startDraw);
@@ -237,6 +248,7 @@ const SHAPES = {
 };
 
 function loadShape(name) {
+  lastShape = name;
   const fn = SHAPES[name];
   const n = 400;
   let pts = [];
