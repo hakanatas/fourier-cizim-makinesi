@@ -102,6 +102,7 @@ body {
   flex-direction: column;
   gap: 0.8rem;
 }
+.formula-panel[hidden] { display: none; }
 .fx-block { border-left: 3px solid #3a4250; padding-left: 0.8rem; }
 .fx-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: #8d93ab; margin-bottom: 0.35rem; }
 .fx-line {
