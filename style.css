@@ -336,6 +336,9 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
 }
 .explain b { color: var(--ink); }
 
+.brand a.kicker { text-decoration: none; cursor: pointer; display: inline-block; transition: color 0.15s; }
+.brand a.kicker:hover { color: var(--accent); }
+
 /* ---------- info butonu + modal ---------- */
 .info-btn {
   display: inline-flex; align-items: center; justify-content: center;
