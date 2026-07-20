@@ -10,7 +10,8 @@
 <header class="topbar">
   <div class="brand">
     <div class="kicker">Etkileşimli Bilim Levhaları</div>
-    <h1>Fourier <span>Çizim Makinesi</span></h1>
+    <h1>Fourier <span>Çizim Makinesi</span>
+      <button class="info-btn" id="infoBtn" title="Bu levha nedir?">i</button></h1>
   </div>
   <nav class="plate-nav">
     <a class="plate-tab page-link" href="https://hakanatas.github.io/interactive-periodic-table/">
@@ -99,6 +100,30 @@
     bu bir <b>Fourier serisidir</b>. Terim sayısını artırdıkça çizim aslına yaklaşır:
     az çember = yumuşak taslak, çok çember = keskin ayrıntı.
   </p>
+</div>
+
+<div class="modal-backdrop" id="infoModal" hidden>
+  <div class="modal">
+    <button class="modal-close" id="infoClose" aria-label="Kapat">×</button>
+    <div class="modal-body">
+      <div class="modal-kicker">Levha III · Rehber</div>
+      <h2>Fourier <span>Çizim Makinesi</span></h2>
+      <p>Fareyle çizdiğin herhangi bir kapalı şekli, sabit hızlarla dönen çemberlerin (episaykılların)
+        toplamı olarak yeniden çizer. Bu, bir <b>Fourier serisidir</b>.</p>
+      <h3>Neler yapabilirsin</h3>
+      <ul>
+        <li>Kanvasa fareyle bir şekil çiz ya da hazır şekillerden birini seç (kalp, yıldız, kelebek, sonsuz).</li>
+        <li><b>Terim sayısı</b> kaydırıcısı: az çemberle kaba taslak, çok çemberle keskin ayrıntı. Serinin yakınsamasını canlı izle.</li>
+        <li><b>Benzerlik puanı</b>: yeniden çizimin aslına ne kadar yakın olduğunu yüzdeyle gösterir.</li>
+        <li><b>ƒ Formüller</b> butonu: çiziminin gerçek katsayılı açık Fourier serisini (karmaşık üstel ve x–y biçimi) gösterir; bir terimin üzerine gelince ilgili çember vurgulanır.</li>
+      </ul>
+      <h3>Bilimsel arka plan</h3>
+      <p>Fourier'in fikri şudur: yeterince çok sinüs ve kosinüs dalgasını doğru genlik ve fazla toplarsan,
+        herhangi bir periyodik şekli oluşturabilirsin. Her dönen çember bir frekans bileşenidir. Bu ilke ses
+        sıkıştırmadan görüntü işlemeye, sinyal analizinden kuantum fiziğine kadar her yerde kullanılır.</p>
+      <div class="modal-tip">💡 İpucu: Kalbi 3 terime düşür — kabaca tanınır; 40 terimde neredeyse kusursuz olur.</div>
+    </div>
+  </div>
 </div>
 
 <script src="app.js"></script>

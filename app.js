@@ -378,6 +378,18 @@ document.addEventListener("click", (ev) => {
   setTimeout(() => (location.href = a.href), 240);
 });
 
+/* ---------- bilgi modalı ---------- */
+(() => {
+  const m = document.getElementById("infoModal");
+  const b = document.getElementById("infoBtn");
+  if (!m || !b) return;
+  b.addEventListener("click", () => (m.hidden = false));
+  document.getElementById("infoClose").addEventListener("click", () => (m.hidden = true));
+  m.addEventListener("click", (ev) => { if (ev.target === m) m.hidden = true; });
+  document.addEventListener("keydown", (ev) => { if (ev.key === "Escape") m.hidden = true; });
+})();
+
+
 resize();
 loadShape("heart");
 requestAnimationFrame(drawFrame);
