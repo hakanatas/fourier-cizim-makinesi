@@ -342,9 +342,9 @@ body.leaving { animation: pageOut 0.26s ease forwards; }
   .brand .kicker { font-size: 0.52rem; letter-spacing: 0.2em; }
   .topbar h1 { font-size: 1.12rem; }
   .plate-nav { width: 100%; }
-  .plate-tab { flex: 1 1 45%; padding: 0.4rem 0.45rem; }
-  .plate-tab .lbl { font-size: 0.66rem; }
-  .plate-tab .fig { font-size: 0.46rem; }
+  .plate-tab { flex: 1 1 30%; padding: 0.4rem 0.45rem; }
+  .plate-tab .lbl { font-size: 0.62rem; white-space: nowrap; }
+  .plate-tab .fig { font-size: 0.44rem; }
   .board-wrap { width: 100%; padding: 0 3vw; }
   .control-bar { gap: 0.7rem 1rem; padding: 0.6rem 0.8rem; }
   .presets { width: 100%; }
